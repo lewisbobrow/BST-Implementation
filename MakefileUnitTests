@@ -7,7 +7,7 @@ CXXFLAGS = -std=c++11 -Wall -Wextra -Wshadow  -I ..
 unittests: CXXFLAGS += -isystem /usr/sup/include
 unittests: LDLIBS   += -lpthread -lgtest
 unittests: LDFLAGS  += -L/usr/sup/lib
-unittests: runalltests.o BinarySearchTree-unittest.o TestMain.cpp ../pretty_print.o \
+unittests: runalltests.o BinarySearchTree-unittest.o TestMain.o ../pretty_print.o \
 		../BinarySearchTree.o
 	${CXX}  -o $@ $^ ${LDFLAGS} ${LDLIBS}
 
