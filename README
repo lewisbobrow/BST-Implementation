@@ -1,0 +1,72 @@
+/**********************************************************
+* HW4: Binary Search Tree
+* Comp 15 Spring 2019 
+* README
+* Author: Lewis Bobrow
+*
+*********************************************************/
+
+Compile/run: Compile using "make", run executable with
+"./hw4". I compiled the unittest file, TestMain.cpp, separately
+using clang++.
+
+
+Program Purpose: This homework is a binary search tree implementation. The 
+main program creates an instance of a binary search tree, and implements 
+several functions functions from the binary search tree class. These include 
+inserting and deleting nodes, counting the height, number of nodes and the 
+total value of the nodes.
+
+
+Acknowledgements: I discussed the remove function with Brendan Brennan.
+
+
+Files: 
+main.cpp: Creates instance of BinarySearchTree, implements functions from
+the class, and prints out the tree and information about it's height,
+number of nodes, etc.
+
+BinarySearchTree.cpp: Implementation of BinarySearchTree class.
+
+BinarySearchTree.h: Interface of BinarySearchTree class.
+
+pretty_print.cpp: Prints the binary search tree using slashes to represent
+pointers to the right and left children, and asterisks to represent 
+multiplicty.
+
+TestMain.cpp: Unit testing of the BinarySearchTree class. Creates an 
+instance of a binary search tree and tests the functionality of the private 
+functions.
+
+
+Data Structures: The binary search tree structure consists of Struct Nodes 
+which that contain pointers to the Node's left and right children, it's 
+value, and it's count(multiplicity). Each node, including the root of the 
+tree, can have 0, 1 or 2 children. A node's left child is always smaller in 
+value than itself, and it's right child is always larger in value than 
+itself.
+
+
+Testing: I had several major bugs in my insert and remove function that 
+revolved around the multiplicity of the Node. In insert, if the value is 
+already contained in the tree, then the count of the Node corresponding to 
+that value should be increased by 1. Similarly, in remove, if the count of 
+the Node corresponding to the value is greater than 1, the count is reduced 
+by 1. When I first tested my program, however, I found that only the root's 
+multiplicity was being increased. This is because in my functions, I would 
+check if the tree contains(node, value), or if node->count was > 1, but I 
+didn't realize that in the public implementation of the function, insert and 
+delete are called with root as their Node *node parameter. This meant that I 
+was only altering the count of the root Node. To fix this, I implemented a 
+new private function called atValue, which took value and a pointer to the 
+root as a parameter, and returned a pointer to the Node that had this value. 
+This allowed me to increase the count of the Node returned by atValue if the 
+tree contained the value, or decrease the count if the count was greater 
+than 1. I tested all the private functions, and their edge cases, in a 
+unittest file called TestMain. This program created an instance of the 
+BinarySearchTree, inserted values into the tree, then tested the 
+functionality of the private functions with normal cases and edge cases by 
+cout-ing the result. After inserting and removing several more values from 
+the tree, the functions were called again, and the new results were cout-ed 
+again. This last step was to ensure that the insert and remove functions 
+were working properly, and that the tree would be properly updated.
